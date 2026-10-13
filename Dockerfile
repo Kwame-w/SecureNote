@@ -7,7 +7,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies, then remove pip and setuptools: the running app never needs them,
+# and their vendored libraries (urllib3, msgpack) are a common source of scanner findings.
+RUN pip install --no-cache-dir -r requirements.txt \
+ && pip uninstall -y setuptools wheel pip
 
 COPY securenotes ./securenotes
 COPY wsgi.py .
