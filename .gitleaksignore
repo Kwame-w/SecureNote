@@ -1,0 +1,2 @@
+# Public RFC 6238 test-vector secret in the MFA tests, committed before the inline allow comment was added.
+2e75b5d9600a09551c5f340659f3d7faa47e25d0:tests/test_mfa.py:generic-api-key:17

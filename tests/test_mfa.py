@@ -14,7 +14,8 @@ from .conftest import STRONG, login, logout, register
 
 # --- the TOTP algorithm itself ------------------------------------------------
 
-RFC_SECRET = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ"  # base32 of b"12345678901234567890"
+# Public RFC 6238 test secret (base32 of b"12345678901234567890"), not a real credential.
+RFC_SECRET = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ"  # gitleaks:allow
 
 
 @pytest.mark.parametrize("unix_time,expected", [

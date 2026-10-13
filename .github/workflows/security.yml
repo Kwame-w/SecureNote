@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build -t securenotes:ci .
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0, pinned to a commit SHA
         with:
           image-ref: securenotes:ci
           severity: CRITICAL,HIGH
