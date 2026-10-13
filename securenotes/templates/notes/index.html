@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}My notes{% endblock %}
+{% block content %}
+<div class="row">
+  <h1>My notes</h1>
+  <a class="button primary" href="{{ url_for('notes.create') }}">New note</a>
+</div>
+{% if notes %}
+  <ul class="notes">
+  {% for note in notes %}
+    <li class="card">
+      <a href="{{ url_for('notes.view', note_id=note.id) }}"><strong>{{ note.title }}</strong></a>
+      <p class="preview">{{ note.body | truncate(160) }}</p>
+      <span class="muted small">Updated {{ note.updated_at.strftime('%Y-%m-%d %H:%M') }} UTC</span>
+    </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p class="muted">No notes yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "_field.html" import field %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Create an account</h1>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {{ field(form.username, "username") }}
+    {{ field(form.password, "new-password") }}
+    {{ field(form.confirm, "new-password") }}
+    <p class="muted small">At least 12 characters. Long passphrases are welcome.</p>
+    <button class="primary">Create account</button>
+  </form>
+</section>
+{% endblock %}

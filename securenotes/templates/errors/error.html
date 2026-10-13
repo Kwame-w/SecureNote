@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ code }}{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>{{ code }} · {{ name }}</h1>
+  {% if code == 429 %}<p>Too many attempts. Please wait a moment and try again.</p>{% endif %}
+  <p><a href="{{ url_for('notes.index') }}">Back to your notes</a></p>
+</section>
+{% endblock %}

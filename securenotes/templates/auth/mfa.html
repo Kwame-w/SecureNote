@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "_field.html" import field %}
+{% block title %}Two-factor authentication{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Two-factor authentication</h1>
+  <p class="muted">Enter the 6-digit code from your authenticator app, or one of your recovery codes.</p>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {{ field(form.code, "one-time-code") }}
+    <button class="primary">Verify</button>
+  </form>
+</section>
+{% endblock %}

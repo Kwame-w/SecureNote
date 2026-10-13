@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_field.html" import field %}
+{% block title %}Set up two-factor authentication{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Set up two-factor authentication</h1>
+  <ol>
+    <li>Open an authenticator app (Google Authenticator, Microsoft Authenticator, Authy, 1Password...).</li>
+    <li>Scan this QR code, or enter the key by hand.</li>
+    <li>Type the 6-digit code the app shows to confirm.</li>
+  </ol>
+  <img class="qr" src="{{ qr }}" alt="QR code for your authenticator app" width="220" height="220">
+  <p class="muted small">Key: <code>{{ secret }}</code></p>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {{ field(form.code, "one-time-code") }}
+    <button class="primary">Confirm and turn on</button>
+  </form>
+</section>
+{% endblock %}

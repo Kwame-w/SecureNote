@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Recovery codes{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Two-factor authentication is on</h1>
+  <p>Save these recovery codes somewhere safe, like a password manager. Each one works once if you lose your phone.
+     <strong>They won't be shown again.</strong></p>
+  <ul class="codes">
+    {% for code in codes %}<li><code>{{ code }}</code></li>{% endfor %}
+  </ul>
+  <a class="button primary" href="{{ url_for('notes.index') }}">I've saved them</a>
+</section>
+{% endblock %}

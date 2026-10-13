@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_field.html" import field %}
+{% block title %}Security{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Account security</h1>
+  {% if current_user.mfa_enabled %}
+    <p><span class="badge on">On</span> Two-factor authentication protects your account.
+       You have {{ current_user.remaining_recovery_codes() }} unused recovery codes.</p>
+    <h2>Turn off two-factor authentication</h2>
+    <form method="post" action="{{ url_for('account.mfa_disable') }}" novalidate>
+      {{ disable_form.hidden_tag() }}
+      {{ field(disable_form.password, "current-password") }}
+      {{ field(disable_form.code, "one-time-code") }}
+      <button class="danger">Turn off</button>
+    </form>
+  {% else %}
+    <p><span class="badge off">Off</span> Two-factor authentication is not set up. Anyone with your password can sign in.</p>
+    <a class="button primary" href="{{ url_for('account.mfa_setup') }}">Set up two-factor authentication</a>
+  {% endif %}
+</section>
+{% endblock %}
