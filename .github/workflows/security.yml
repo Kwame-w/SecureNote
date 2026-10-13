@@ -64,10 +64,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t securenotes:ci .
-      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0, pinned to a commit SHA
+      - name: Build image
+        run: docker build -t securenotes:ci .
+      - name: Scan image
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0, pinned to a commit SHA
         with:
           image-ref: securenotes:ci
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: "1"
+          format: json
+          output: trivy.json
+          exit-code: "0"
+      - name: Report findings
+        # Each fixable HIGH/CRITICAL finding becomes an annotation on the run, and the job fails if there are any.
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          data = json.load(open("trivy.json"))
+          found = [(r.get("Target", ""), v) for r in data.get("Results", []) for v in r.get("Vulnerabilities") or []]
+          for target, v in found:
+              print(f"::error title={v['VulnerabilityID']} ({v['Severity']})::{v['PkgName']} {v['InstalledVersion']} -> fix {v.get('FixedVersion', '?')} in {target}")
+          print(f"{len(found)} fixable HIGH/CRITICAL vulnerabilities")
+          sys.exit(1 if found else 0)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-report
+          path: trivy.json
