@@ -60,8 +60,8 @@ Semgrep flagged the original login redirect as a possible open redirect. The red
 ## Run it
 
 ```bash
-git clone https://github.com/<your-username>/securenotes.git
-cd securenotes
+git clone https://github.com/Kwame-w/SecureNote.git
+cd SecureNote
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
 
