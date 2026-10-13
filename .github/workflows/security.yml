@@ -88,7 +88,7 @@ jobs:
           print(f"{len(found)} fixable HIGH/CRITICAL vulnerabilities")
           sys.exit(1 if found else 0)
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: trivy-report
