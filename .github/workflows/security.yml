@@ -3,6 +3,7 @@ name: CI / Security
 on:
   push:
   pull_request:
+  workflow_dispatch:
   schedule:
     - cron: "0 6 * * 1"  # weekly, to catch newly disclosed CVEs in pinned dependencies
 
