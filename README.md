@@ -108,4 +108,4 @@ tests/              # test_auth.py, test_mfa.py, test_notes.py, test_hardening.p
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).
